@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  {% set site_name = config.extra.site_name | default(value="johnpgr") %}
+  {% set meta_title = page.title | default(value=section.title | default(value=config.title)) %}
+  {% set meta_desc = page.description | default(value=section.description | default(value=config.description)) %}
+  <title>{{ meta_title }}{% if meta_title != site_name %} - {{ site_name }}{% endif %}</title>
+  <meta name="description" content="{{ meta_desc }}">
+  <meta name="theme-color" content="#fbf1c7">
+  <link rel="canonical" href="{{ current_url | default(value=config.base_url) }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ meta_title }}">
+  <meta property="og:description" content="{{ meta_desc }}">
+  <meta property="og:url" content="{{ current_url | default(value=config.base_url) }}">
+  <meta property="og:site_name" content="{{ site_name }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ meta_title }}">
+  <meta name="twitter:description" content="{{ meta_desc }}">
+  {% if section and section.generate_feeds %}
+  <link rel="alternate" type="application/atom+xml" title="{{ config.title }} feed" href="{{ get_url(path="atom.xml") }}">
+  {% endif %}
+  <style>
+    :root {
+      --bg: #fbf1c7;
+      --bg-soft: #f4e8be;
+      --bg-strong: #f2e5bc;
+      --line: #e5d5ad;
+      --text: #654735;
+      --text-strong: #4f3829;
+      --muted: #7c6f64;
+      --link: #4c7a5d;
+      --link-hover: #45707a;
+      --focus: #c35e0a;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: radial-gradient(70rem 32rem at 100% -10%, var(--bg-strong), var(--bg) 45%);
+      font: 16px/1.62 ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+    a {
+      color: var(--link);
+      text-decoration-thickness: .08em;
+      text-underline-offset: .18em;
+    }
+    a:hover {
+      color: var(--link-hover);
+    }
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px dashed var(--focus);
+      outline-offset: 2px;
+    }
+    .skip {
+      position: absolute;
+      left: .75rem;
+      top: -2.5rem;
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      padding: .35rem .55rem;
+      border-radius: .35rem;
+    }
+    .skip:focus {
+      top: .75rem;
+    }
+    .wrap {
+      width: min(68ch, calc(100% - 2rem));
+      margin-inline: auto;
+    }
+    header {
+      padding: 2.3rem 0 1rem;
+    }
+    .kicker {
+      margin: 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.25;
+      color: var(--text-strong);
+    }
+    h1 {
+      margin-top: .15rem;
+      font-size: clamp(1.7rem, 4vw, 2.1rem);
+    }
+    h2 {
+      font-size: 1.15rem;
+    }
+    section > h2 {
+      margin-bottom: .75rem;
+    }
+    h3 {
+      font-size: 1rem;
+      margin: 0 0 .25rem;
+    }
+    nav {
+      margin-top: .8rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .95rem;
+    }
+    main {
+      padding-bottom: 2.2rem;
+    }
+    section {
+      border-top: 1px solid var(--line);
+      padding: 1rem 0;
+    }
+    .hero {
+      padding-top: 1.2rem;
+    }
+    .cta {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: .35rem;
+      padding: .32rem .62rem;
+      text-decoration: none;
+    }
+    .cta:hover {
+      border-color: var(--link-hover);
+    }
+    .item + .item {
+      margin-top: .8rem;
+      padding-top: .8rem;
+      border-top: 1px dashed var(--line);
+    }
+    p {
+      margin: .55rem 0;
+    }
+    ul {
+      margin: .55rem 0;
+      padding-left: 1.05rem;
+    }
+    li {
+      margin: .36rem 0;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: .94rem;
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      padding: .85rem 0 1.6rem;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+  {% block head_extra %}{% endblock head_extra %}
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="wrap">
+    <p class="kicker">johnpgr</p>
+    <h1><a href="/">João Paulo</a></h1>
+    <nav aria-label="Primary">
+      <a href="https://github.com/johnpgr">GitHub</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+  </header>
+  <main id="main" class="wrap">
+    {% block content %}{% endblock content %}
+  </main>
+</body>
+</html>

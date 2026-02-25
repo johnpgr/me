@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"{{ section.extra.name }}","url":"{{ config.base_url }}","sameAs":["{{ section.extra.github }}"],"jobTitle":"{{ section.extra.role }}","homeLocation":{"@type":"Place","name":"{{ section.extra.location }}"}}
+</script>
+{% endblock head_extra %}
+
+{% block content %}
+<section class="hero" aria-labelledby="about-title">
+  <h2 id="about-title">{{ section.extra.hero_title }}</h2>
+  {{ section.content | safe }}
+  <p class="meta">{{ section.extra.location }} - {{ section.extra.role }}</p>
+  <p><a class="cta" href="{{ section.extra.github }}">See my work on GitHub</a></p>
+</section>
+
+<section aria-labelledby="value-title">
+  <h2 id="value-title">What I bring to a team</h2>
+  {% for point in section.extra.value_points %}
+  <p><strong>{{ point.title }}:</strong> {{ point.body }}</p>
+  {% endfor %}
+</section>
+
+<section aria-labelledby="work-title">
+  <h2 id="work-title">Selected work</h2>
+  {% for item in section.extra.selected_work %}
+  <article class="item">
+    <h3>
+      {% if item.url %}
+      <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.name }}</a>
+      {% else %}
+      {{ item.name }}
+      {% endif %}
+    </h3>
+    <p>{{ item.summary }}</p>
+    <p class="meta">{{ item.stack }}</p>
+  </article>
+  {% endfor %}
+  <p class="meta">More open-source work is on GitHub.</p>
+</section>
+
+<section aria-labelledby="upcoming-title">
+  <h2 id="upcoming-title">Upcoming work</h2>
+  {% for item in section.extra.upcoming_work %}
+  <article class="item">
+    <h3>
+      {% if item.url %}
+      <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ item.name }}</a>
+      {% else %}
+      {{ item.name }}
+      {% endif %}
+    </h3>
+    <p>{{ item.summary }}</p>
+    <p class="meta">{{ item.stack }}</p>
+  </article>
+  {% endfor %}
+</section>
+
+<section aria-labelledby="private-title">
+  <h2 id="private-title">Private projects</h2>
+  {% for project in section.extra.private_projects %}
+  <article class="item">
+    <h3>{{ project.name }}</h3>
+    <p>{{ project.summary }}</p>
+    {% if project.website_url %}
+    <p class="meta"><a href="{{ project.website_url }}" target="_blank" rel="noopener noreferrer">{{ project.website_label | default(value="Institutional site") }}</a></p>
+    {% endif %}
+    {% if project.store_ios_url %}
+    <p class="meta"><a href="{{ project.store_ios_url }}">App Store</a> - <a href="{{ project.store_android_url }}">Google Play</a></p>
+    {% endif %}
+    <p class="meta">{{ project.stack }}</p>
+  </article>
+  {% endfor %}
+</section>
+
+<section aria-labelledby="hiring-title">
+  <h2 id="hiring-title">Hiring</h2>
+  <p>{{ section.extra.hiring_blurb }}</p>
+  <p><a href="{{ section.extra.github }}">GitHub profile</a></p>
+</section>
+{% endblock content %}

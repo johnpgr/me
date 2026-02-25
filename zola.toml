@@ -1,0 +1,17 @@
+base_url = "https://johnpgr.github.io"
+title = "João Paulo"
+description = "Minimal developer homepage for johnpgr: projects, contributions, and writing."
+default_language = "en"
+compile_sass = false
+minify_html = true
+build_search_index = false
+
+[markdown]
+smart_punctuation = true
+render_emoji = false
+external_links_target_blank = true
+external_links_no_follow = true
+
+[extra]
+github = "https://github.com/johnpgr"
+site_name = "João Paulo"
