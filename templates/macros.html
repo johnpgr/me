@@ -1,0 +1,12 @@
+{% macro tech_icon(tech) -%}
+{%- if "React" in tech -%}i-react
+{%- elif "TypeScript" in tech or "Typescript" in tech -%}i-ts
+{%- elif "Rust" in tech -%}i-rust
+{%- elif "Kotlin" in tech -%}i-kt
+{%- elif "Python" in tech -%}i-py
+{%- elif tech == "C" or "C+" in tech -%}i-c
+{%- elif "PostgreSQL" in tech or "Postgres" in tech -%}i-pg
+{%- elif "Vulkan" in tech -%}i-vk
+{%- else -%}i-code
+{%- endif -%}
+{%- endmacro tech_icon %}
